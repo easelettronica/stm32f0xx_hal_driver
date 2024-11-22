@@ -761,7 +761,11 @@ __weak void HAL_UART_MspDeInit(UART_HandleTypeDef *huart)
   *           @arg @ref HAL_UART_ABORT_COMPLETE_CB_ID Abort Complete Callback ID
   *           @arg @ref HAL_UART_ABORT_TRANSMIT_COMPLETE_CB_ID Abort Transmit Complete Callback ID
   *           @arg @ref HAL_UART_ABORT_RECEIVE_COMPLETE_CB_ID Abort Receive Complete Callback ID
+#if defined(USART_CR1_UESM)
+#if defined(USART_CR3_WUFIE)
   *           @arg @ref HAL_UART_WAKEUP_CB_ID Wakeup Callback ID
+#endif
+#endif
   *           @arg @ref HAL_UART_MSPINIT_CB_ID MspInit Callback ID
   *           @arg @ref HAL_UART_MSPDEINIT_CB_ID MspDeInit Callback ID
   * @param  pCallback pointer to the Callback function
@@ -885,7 +889,11 @@ HAL_StatusTypeDef HAL_UART_RegisterCallback(UART_HandleTypeDef *huart, HAL_UART_
   *           @arg @ref HAL_UART_ABORT_COMPLETE_CB_ID Abort Complete Callback ID
   *           @arg @ref HAL_UART_ABORT_TRANSMIT_COMPLETE_CB_ID Abort Transmit Complete Callback ID
   *           @arg @ref HAL_UART_ABORT_RECEIVE_COMPLETE_CB_ID Abort Receive Complete Callback ID
+#if defined(USART_CR1_UESM)
+#if defined(USART_CR3_WUFIE)
   *           @arg @ref HAL_UART_WAKEUP_CB_ID Wakeup Callback ID
+#endif
+#endif
   *           @arg @ref HAL_UART_MSPINIT_CB_ID MspInit Callback ID
   *           @arg @ref HAL_UART_MSPDEINIT_CB_ID MspDeInit Callback ID
   * @retval HAL status
@@ -1108,6 +1116,13 @@ HAL_StatusTypeDef HAL_UART_UnRegisterRxEventCallback(UART_HandleTypeDef *huart)
     (#) A Rx Event Reception Callback (Rx event notification) is available for Non_Blocking modes of enhanced
         reception services:
         (+) HAL_UARTEx_RxEventCallback()
+#if defined(USART_CR1_UESM)
+#if defined(USART_CR3_WUFIE)
+
+    (#) Wakeup from Stop mode Callback:
+        (+) HAL_UARTEx_WakeupCallback()
+#endif
+#endif
 
     (#) In Non-Blocking mode transfers, possible errors are split into 2 categories.
         Errors are handled as follows :
